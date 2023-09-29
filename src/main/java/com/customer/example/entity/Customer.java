@@ -1,5 +1,7 @@
 package com.customer.example.entity;
 
+import java.util.Objects;
+
 public class Customer {
 
     private String firstname;
@@ -24,5 +26,18 @@ public class Customer {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(firstname, customer.firstname) && Objects.equals(lastname, customer.lastname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstname, lastname);
     }
 }
