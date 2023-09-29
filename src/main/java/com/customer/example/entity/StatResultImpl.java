@@ -1,14 +1,16 @@
 package com.customer.example.entity;
 
+import com.customer.example.entity.db.Customer;
+
 import java.util.Set;
 
-public class StatResult {
+public class StatResultImpl implements Result{
 
     private final ResultType type = ResultType.stat;
     private int totalDays;
     private Set<Customer> customers;
 
-    public StatResult(int totalDays, Set<Customer> customers) {
+    public StatResultImpl(int totalDays, Set<Customer> customers) {
         this.totalDays = totalDays;
         this.customers = customers;
     }
