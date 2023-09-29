@@ -16,6 +16,6 @@ public class CustomerController {
     }
 
     public Result getCustomerStats(Stat stat) {
-        return new StatResultImpl(0, new HashSet<>());
+        return new StatResultImpl(0, new HashSet<>(), 0, 0);
     }
 }
