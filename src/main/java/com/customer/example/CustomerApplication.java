@@ -1,13 +1,11 @@
 package com.customer.example;
 
-/**
- * Hello world!
- *
- */
-public class CustomerApplication
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+import com.customer.example.utils.ArgumentsSetting;
+
+public class CustomerApplication {
+    public static void main(String[] args) {
+        ArgumentsSetting argumentsSetting = new ArgumentsSetting();
+        argumentsSetting.parseArguments(args);
+
     }
 }
