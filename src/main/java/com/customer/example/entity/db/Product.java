@@ -1,4 +1,4 @@
-package com.customer.example.entity;
+package com.customer.example.entity.db;
 
 public class Product {
 
