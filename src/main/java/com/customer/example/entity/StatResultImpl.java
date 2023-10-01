@@ -12,6 +12,9 @@ public class StatResultImpl implements Result{
     private int totalExpenses;
     private int  avgExpenses;
 
+    public StatResultImpl() {
+    }
+
     public StatResultImpl(int totalDays, Set<Customer> customers, int totalExpenses, int avgExpenses) {
         this.totalDays = totalDays;
         this.customers = customers;

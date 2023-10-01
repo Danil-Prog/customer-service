@@ -9,22 +9,7 @@ public class Criteria {
     private int maxExpenses;
     private int badCustomers;
 
-    public Criteria(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Criteria(String productName, int minTimes) {
-        this.productName = productName;
-        this.minTimes = minTimes;
-    }
-
-    public Criteria(int minExpenses, int maxExpenses) {
-        this.minExpenses = minExpenses;
-        this.maxExpenses = maxExpenses;
-    }
-
-    public Criteria(int badCustomers) {
-        this.badCustomers = badCustomers;
+    public Criteria() {
     }
 
     public void setLastName(String lastName) {
@@ -49,5 +34,16 @@ public class Criteria {
 
     public void setBadCustomers(int badCustomers) {
         this.badCustomers = badCustomers;
+    }
+
+    @Override
+    public String toString() {
+        return "\nlastName = '" + lastName + '\'' +
+                ", productName = '" + productName + '\'' +
+                ", minTimes = " + minTimes +
+                ", minExpenses = " + minExpenses +
+                ", maxExpenses = " + maxExpenses +
+                ", badCustomers = " + badCustomers +
+                "}";
     }
 }

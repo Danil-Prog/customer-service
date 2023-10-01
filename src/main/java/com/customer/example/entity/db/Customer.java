@@ -6,10 +6,15 @@ public class Customer {
 
     private String firstname;
     private String lastname;
+    private Profile profile;
 
-    public Customer(String firstname, String lastname) {
+    public Customer() {
+    }
+
+    public Customer(String firstname, String lastname, Profile profile) {
         this.firstname = firstname;
         this.lastname = lastname;
+        this.profile = profile;
     }
 
     public String getFirstname() {
@@ -28,6 +33,10 @@ public class Customer {
         this.lastname = lastname;
     }
 
+    public Profile getProfile() {
+        return profile;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,5 +48,25 @@ public class Customer {
     @Override
     public int hashCode() {
         return Objects.hash(firstname, lastname);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "firstname = '" + firstname + '\'' +
+                ", lastname = '" + lastname + '\'' +
+                ", profile = " + profile +
+                '}';
+    }
+
+    public static class Profile {
+        public int id;
+
+        @Override
+        public String toString() {
+            return "Profile{" +
+                    "id = " + id +
+                    '}';
+        }
     }
 }
