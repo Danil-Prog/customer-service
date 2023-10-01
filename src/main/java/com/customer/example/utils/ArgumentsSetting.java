@@ -17,7 +17,7 @@ public class ArgumentsSetting {
     }
 
     public void parseArguments(String[] args) {
-        if (args.length < 3) {
+        if (args.length != 3) {
             throw new ParseArgumentsException("Error: 3 arguments are required for processing [operation type, path to input and output files]");
         }
 
