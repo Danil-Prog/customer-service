@@ -12,6 +12,30 @@ public class Criteria {
     public Criteria() {
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public int getMinTimes() {
+        return minTimes;
+    }
+
+    public int getMinExpenses() {
+        return minExpenses;
+    }
+
+    public int getMaxExpenses() {
+        return maxExpenses;
+    }
+
+    public int getBadCustomers() {
+        return badCustomers;
+    }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
