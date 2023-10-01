@@ -10,6 +10,9 @@ public class SearchResultImpl implements Result {
     private final ResultType type = ResultType.search;
     private List<Result> results;
 
+    public SearchResultImpl() {
+    }
+
     public SearchResultImpl(List<Result> results) {
         this.results = results;
     }
