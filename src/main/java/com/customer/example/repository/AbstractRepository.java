@@ -1,16 +1,16 @@
 package com.customer.example.repository;
 
-import java.io.FileInputStream;
+import com.customer.example.exception.SqlException;
+
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.InputStream;
+import java.sql.*;
 import java.util.Properties;
 
 public abstract class AbstractRepository {
 
     private Connection connection;
-    private FileInputStream fileInputStream;
+    private InputStream fileInputStream;
     private Properties properties;
 
     // Return connection to database
@@ -20,7 +20,7 @@ public abstract class AbstractRepository {
 
         if (properties == null) {
             try {
-                fileInputStream = new FileInputStream("application.properties");
+                fileInputStream = getClass().getClassLoader().getResourceAsStream("application.properties");
                 properties = new Properties();
 
                 properties.load(fileInputStream);
@@ -38,6 +38,15 @@ public abstract class AbstractRepository {
             return connection;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    protected ResultSet prepareStatement(String sql) {
+        try (Connection connection = this.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            return statement.executeQuery();
+        } catch (SQLException e) {
+            throw new SqlException(e.getMessage());
         }
     }
 
