@@ -16,6 +16,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Result getCustomersByCriterias(Search search) {
+
+        for (int a = 0; a < search.getCriterias().length; a++) {
+            customerRepository.getCustomersByFirstname(search.getCriterias()[a]);
+        }
         return null;
     }
 
