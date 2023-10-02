@@ -2,6 +2,8 @@ package com.customer.example.entity.db;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +15,7 @@ public class Customer {
     private List<Product> products;
 
     public Customer() {
+        this.products = new ArrayList<>();
     }
 
     public Customer(String firstname, String lastname) {
@@ -40,6 +43,10 @@ public class Customer {
         return products;
     }
 
+    public void setProducts(Product[] product) {
+        this.products = Arrays.asList(product);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,5 +58,14 @@ public class Customer {
     @Override
     public int hashCode() {
         return Objects.hash(firstname, lastname);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "firstname = '" + firstname + '\'' +
+                ", lastname = '" + lastname + '\'' +
+                ", products = " + products +
+                '}';
     }
 }
