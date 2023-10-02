@@ -2,6 +2,8 @@ package com.customer.example.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Criteria {
 
@@ -39,28 +41,17 @@ public class Criteria {
         return badCustomers;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Criteria criteria = (Criteria) o;
+        return Objects.equals(lastName, criteria.lastName) && Objects.equals(productName, criteria.productName) && Objects.equals(minTimes, criteria.minTimes) && Objects.equals(minExpenses, criteria.minExpenses) && Objects.equals(maxExpenses, criteria.maxExpenses) && Objects.equals(badCustomers, criteria.badCustomers);
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public void setMinTimes(Integer minTimes) {
-        this.minTimes = minTimes;
-    }
-
-    public void setMinExpenses(Integer minExpenses) {
-        this.minExpenses = minExpenses;
-    }
-
-    public void setMaxExpenses(Integer maxExpenses) {
-        this.maxExpenses = maxExpenses;
-    }
-
-    public void setBadCustomers(Integer badCustomers) {
-        this.badCustomers = badCustomers;
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastName, productName, minTimes, minExpenses, maxExpenses, badCustomers);
     }
 
     @Override
