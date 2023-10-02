@@ -4,7 +4,7 @@ import com.customer.example.entity.db.Customer;
 
 import java.util.Set;
 
-public class StatResultImpl implements Result{
+public class StatResponseImpl implements Response {
 
     private final ResultType type = ResultType.stat;
     private int totalDays;
@@ -12,10 +12,10 @@ public class StatResultImpl implements Result{
     private int totalExpenses;
     private int  avgExpenses;
 
-    public StatResultImpl() {
+    public StatResponseImpl() {
     }
 
-    public StatResultImpl(int totalDays, Set<Customer> customers, int totalExpenses, int avgExpenses) {
+    public StatResponseImpl(int totalDays, Set<Customer> customers, int totalExpenses, int avgExpenses) {
         this.totalDays = totalDays;
         this.customers = customers;
         this.totalExpenses = totalExpenses;

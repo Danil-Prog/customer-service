@@ -1,14 +1,14 @@
 package com.customer.example.entity;
 
-public class ErrorResultImpl implements Result {
+public class ErrorResponseImpl implements Response {
 
     private final ResultType type = ResultType.error;
     private String message;
 
-    public ErrorResultImpl() {
+    public ErrorResponseImpl() {
     }
 
-    public ErrorResultImpl(String message) {
+    public ErrorResponseImpl(String message) {
         this.message = message;
     }
 
