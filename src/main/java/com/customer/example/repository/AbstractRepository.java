@@ -14,8 +14,8 @@ public abstract class AbstractRepository {
     private Properties properties;
 
     // Return connection to database
-    public Connection getConnection() {
-        if (connection != null)
+    public Connection getConnection() throws SQLException {
+        if (connection != null && !connection.isClosed())
             return connection;
 
         if (properties == null) {
@@ -35,6 +35,7 @@ public abstract class AbstractRepository {
 
         try {
             connection = DriverManager.getConnection(url, username, password);
+
             return connection;
         } catch (SQLException e) {
             throw new RuntimeException(e);
