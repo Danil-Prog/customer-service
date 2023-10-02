@@ -30,17 +30,17 @@ public class ObjectMapperUtil {
         return objectMapper.readValue(json, Product[].class);
     }
 
-    public static void mapResultToJson(File file, Result result) throws IOException {
+    public static void mapResultToJson(File file, Response response) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        if (result instanceof ErrorResultImpl) {
-            ErrorResultImpl errors = (ErrorResultImpl) result;
+        if (response instanceof ErrorResponseImpl) {
+            ErrorResponseImpl errors = (ErrorResponseImpl) response;
             objectMapper.writeValue(file, errors);
-        } else if (result instanceof SearchResultImpl) {
-            SearchResultImpl search = (SearchResultImpl) result;
+        } else if (response instanceof SearchResponseImpl) {
+            SearchResponseImpl search = (SearchResponseImpl) response;
             objectMapper.writeValue(file, search);
-        } else if (result instanceof StatResultImpl) {
-            StatResultImpl stat = (StatResultImpl) result;
+        } else if (response instanceof StatResponseImpl) {
+            StatResponseImpl stat = (StatResponseImpl) response;
             objectMapper.writeValue(file, stat);
         }
     }
