@@ -1,7 +1,7 @@
 package com.customer.example;
 
 import com.customer.example.controller.CustomerController;
-import com.customer.example.entity.Result;
+import com.customer.example.entity.Response;
 import com.customer.example.entity.Search;
 import com.customer.example.entity.Stat;
 import com.customer.example.mapper.ObjectMapperUtil;
@@ -15,21 +15,21 @@ public class CustomerApplication {
         argumentsSetting.parseArguments(args);
 
         CustomerController customerController = new CustomerController();
-        Result result = null;
+        Response response = null;
 
         switch (argumentsSetting.getTypeOperation()) {
             case search:
                 Search search = ObjectMapperUtil.mapToSearch(argumentsSetting.getInput());
-                result = customerController.getCustomersByCriterias(search);
+                response = customerController.getCustomersByCriterias(search);
                 break;
             case stat:
                 Stat stat = ObjectMapperUtil.mapToStat(argumentsSetting.getInput());
-                result = customerController.getCustomerStats(stat);
+                response = customerController.getCustomerStats(stat);
                 break;
         }
 
-        if (result != null) {
-            ObjectMapperUtil.mapResultToJson(argumentsSetting.getOutput(), result);
+        if (response != null) {
+            ObjectMapperUtil.mapResultToJson(argumentsSetting.getOutput(), response);
         }
     }
 }
