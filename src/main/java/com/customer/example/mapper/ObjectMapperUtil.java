@@ -1,6 +1,7 @@
 package com.customer.example.mapper;
 
 import com.customer.example.entity.*;
+import com.customer.example.entity.db.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -21,6 +22,12 @@ public class ObjectMapperUtil {
         ObjectMapper objectMapper = new ObjectMapper();
 
         return objectMapper.readValue(file, Stat.class);
+    }
+
+    public static Product[] mapToProduct(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        return objectMapper.readValue(json, Product[].class);
     }
 
     public static void mapResultToJson(File file, Result result) throws IOException {
