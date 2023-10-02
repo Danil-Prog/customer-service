@@ -1,10 +1,11 @@
 package com.customer.example.service.impl;
 
-import com.customer.example.entity.Result;
-import com.customer.example.entity.Search;
-import com.customer.example.entity.Stat;
+import com.customer.example.entity.*;
+import com.customer.example.entity.db.Customer;
 import com.customer.example.repository.CustomerRepository;
 import com.customer.example.service.CustomerService;
+
+import java.util.Set;
 
 public class CustomerServiceImpl implements CustomerService {
 
@@ -15,16 +16,33 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Result getCustomersByCriterias(Search search) {
+    public Response getCustomersByCriterias(Search search) {
+        SearchResponseImpl response = new SearchResponseImpl();
 
-        for (int a = 0; a < search.getCriterias().length; a++) {
-            customerRepository.getCustomersByFirstname(search.getCriterias()[a]);
+        for (Criteria criteria : search.getCriterias()) {
+            if (criteria.getLastName() != null) {
+                Set<Customer> customers = customerRepository.getCustomersByFirstname(criteria);
+
+                SearchResponseImpl.Result result = new SearchResponseImpl.Result();
+                result.setCriteria(criteria);
+                result.setCustomers(customers);
+
+                response.addResult(result);
+            } else if (criteria.getProductName() != null && criteria.getMinTimes() != null) {
+                Set<Customer> customers = customerRepository.getCustomersByProductNameAndProductCount(criteria);
+
+                SearchResponseImpl.Result result = new SearchResponseImpl.Result();
+                result.setCriteria(criteria);
+                result.setCustomers(customers);
+
+                response.addResult(result);
+            }
         }
-        return null;
+        return response;
     }
 
     @Override
-    public Result getCustomersStats(Stat stat) {
+    public Response getCustomersStats(Stat stat) {
         return null;
     }
 }
