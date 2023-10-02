@@ -1,13 +1,16 @@
 package com.customer.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Criteria {
 
     private String lastName;
     private String productName;
-    private int minTimes;
-    private int minExpenses;
-    private int maxExpenses;
-    private int badCustomers;
+    private Integer minTimes;
+    private Integer minExpenses;
+    private Integer maxExpenses;
+    private Integer badCustomers;
 
     public Criteria() {
     }
@@ -20,19 +23,19 @@ public class Criteria {
         return productName;
     }
 
-    public int getMinTimes() {
+    public Integer getMinTimes() {
         return minTimes;
     }
 
-    public int getMinExpenses() {
+    public Integer getMinExpenses() {
         return minExpenses;
     }
 
-    public int getMaxExpenses() {
+    public Integer getMaxExpenses() {
         return maxExpenses;
     }
 
-    public int getBadCustomers() {
+    public Integer getBadCustomers() {
         return badCustomers;
     }
 
@@ -44,19 +47,19 @@ public class Criteria {
         this.productName = productName;
     }
 
-    public void setMinTimes(int minTimes) {
+    public void setMinTimes(Integer minTimes) {
         this.minTimes = minTimes;
     }
 
-    public void setMinExpenses(int minExpenses) {
+    public void setMinExpenses(Integer minExpenses) {
         this.minExpenses = minExpenses;
     }
 
-    public void setMaxExpenses(int maxExpenses) {
+    public void setMaxExpenses(Integer maxExpenses) {
         this.maxExpenses = maxExpenses;
     }
 
-    public void setBadCustomers(int badCustomers) {
+    public void setBadCustomers(Integer badCustomers) {
         this.badCustomers = badCustomers;
     }
 
