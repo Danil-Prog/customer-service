@@ -1,6 +1,6 @@
 package com.customer.example.entity;
 
-import com.customer.example.entity.db.Customer;
+import com.customer.example.dto.CustomerDto;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,13 +35,13 @@ public class SearchResponseImpl implements Response {
 
     public static class Result {
         private Criteria criteria;
-        private Set<Customer> customers;
+        private Set<CustomerDto> customers;
 
         public Result() {
             this.customers = new HashSet<>();
         }
 
-        public Result(Criteria criteria, Set<Customer> customers) {
+        public Result(Criteria criteria, Set<CustomerDto> customers) {
             this.criteria = criteria;
             this.customers = customers;
         }
@@ -54,11 +54,11 @@ public class SearchResponseImpl implements Response {
             this.criteria = criteria;
         }
 
-        public Set<Customer> getCustomers() {
+        public Set<CustomerDto> getCustomers() {
             return customers;
         }
 
-        public void setCustomers(Set<Customer> customers) {
+        public void setCustomers(Set<CustomerDto> customers) {
             this.customers = customers;
         }
     }
