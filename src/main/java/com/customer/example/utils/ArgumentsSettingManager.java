@@ -7,13 +7,20 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class ArgumentsSetting {
+public class ArgumentsSettingManager {
 
+    private static ArgumentsSettingManager INSTANCE;
     private ResultType typeOperation;
     private File input;
     private File output;
 
-    public ArgumentsSetting() {
+    private ArgumentsSettingManager() {
+    }
+
+    public static ArgumentsSettingManager getInstance() {
+        if (INSTANCE == null)
+            INSTANCE = new ArgumentsSettingManager();
+        return INSTANCE;
     }
 
     public void parseArguments(String[] args) {
