@@ -10,7 +10,6 @@ import java.util.Properties;
 public abstract class AbstractRepository {
 
     private Connection connection;
-    private InputStream fileInputStream;
     private Properties properties;
 
     // Return connection to database
@@ -20,7 +19,7 @@ public abstract class AbstractRepository {
 
         if (properties == null) {
             try {
-                fileInputStream = getClass().getClassLoader().getResourceAsStream("application.properties");
+                InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream("application.properties");
                 properties = new Properties();
 
                 properties.load(fileInputStream);
