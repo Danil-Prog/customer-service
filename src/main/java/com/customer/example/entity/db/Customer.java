@@ -1,7 +1,5 @@
 package com.customer.example.entity.db;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,11 +9,10 @@ public class Customer {
 
     private String firstname;
     private String lastname;
-    @JsonIgnore
-    private List<Product> products;
+    private List<Product> purchases;
 
     public Customer() {
-        this.products = new ArrayList<>();
+        this.purchases = new ArrayList<>();
     }
 
     public Customer(String firstname, String lastname) {
@@ -27,24 +24,13 @@ public class Customer {
         return firstname;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
     public String getLastname() {
         return lastname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Product[] product) {
-        this.products = Arrays.asList(product);
+    public List<Product> getPurchases() {
+        return purchases;
     }
 
     @Override
@@ -65,7 +51,7 @@ public class Customer {
         return "Customer{" +
                 "firstname = '" + firstname + '\'' +
                 ", lastname = '" + lastname + '\'' +
-                ", products = " + products +
+                ", products = " + purchases +
                 '}';
     }
 }
