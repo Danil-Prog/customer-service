@@ -1,11 +1,11 @@
 package com.customer.example.repository;
 
 import com.customer.example.entity.Criteria;
+import com.customer.example.entity.Stat;
 import com.customer.example.entity.db.Customer;
-import com.customer.example.entity.db.Product;
+import com.customer.example.exception.SqlException;
 import com.customer.example.mapper.ObjectMapperUtil;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,79 +28,70 @@ public class CustomerRepository extends AbstractRepository {
 
         try (ResultSet result = this.prepareStatement(SQL)) {
             while (result.next()) {
-                Customer customer = new Customer();
-                customer.setFirstname(result.getString("firstname"));
-                customer.setLastname(result.getString("lastname"));
+                Customer customer = new Customer(
+                        result.getString("firstname"),
+                        result.getString("lastname")
+                );
+
                 customers.add(customer);
             }
             return customers;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SqlException(e.getMessage());
         }
 
     }
 
-    // Get list customer by product name and product count
-    public Set<Customer> getCustomersByProductNameAndProductCount(Criteria criteria) {
+    // Gets all users and their purchases
+    public Set<Customer> getAllCustomer() {
         Set<Customer> customers = new HashSet<>();
 
-        String SQL = String.format("SELECT customer.firstname, customer.lastname, " +
-                "(SELECT json_agg(json_build_object('name', o.name, 'price', o.price)) AS products " +
-                "FROM product o, purchases p " +
-                "WHERE o.name = '%s' AND p.customer_id = customer.id) AS products " +
-                "FROM customer", criteria.getProductName());
-
+        String SQL = "SELECT json_build_object( " +
+                "'firstname', firstname, " +
+                "'lastname', lastname, " +
+                "'purchases', (SELECT COALESCE(json_agg(json_build_object( " +
+                "'name', product.name, " +
+                "'price', product.price)) FILTER (WHERE purchases.product_id is not null), '[]') " +
+                "FROM purchases JOIN product on product_id = product.id " +
+                "WHERE customer_id = customer.id)) as customers " +
+                "FROM customer";
         try (ResultSet result = this.prepareStatement(SQL)) {
             while (result.next()) {
-                Customer customer = new Customer();
-                customer.setFirstname(result.getString("firstname"));
-                customer.setLastname(result.getString("lastname"));
-
-                try {
-                    if (result.getString("products") != null) {
-                        Product[] products = ObjectMapperUtil.mapToProduct(result.getString("products"));
-                        customer.setProducts(products);
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Customer customer = ObjectMapperUtil.mapToCustomerPurchases(result.getString("customers"));
+                customers.add(customer);
             }
-            return customers;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SqlException(e.getMessage());
         }
+        return customers;
     }
-    public List<Customer> getCustomersProduct() {
+
+    // Get list customer purchases by dates range
+    public List<Customer> getCustomerPurchasesByRangeDates(Stat stat) {
         List<Customer> customers = new ArrayList<>();
 
-        String SQL = "SELECT customer.lastname, customer.firstname, json_agg(json_build_object('name', product.name, 'price', product.price)) AS products " +
-                "FROM purchases " +
-                "LEFT JOIN customer " +
-                "ON purchases.customer_id = customer.id " +
-                "LEFT JOIN product " +
-                "ON product.id = purchases.product_id " +
-                "GROUP BY customer.id";
-
+        String SQL = String.format(
+                "SELECT json_build_object( " +
+                    "'firstname', firstname, " +
+                    "'lastname', lastname, " +
+                    "'purchases', " +
+                        "(SELECT COALESCE(json_agg(json_build_object( " +
+                        "'name', product.name, " +
+                        "'price', product.price)) FILTER (WHERE purchases.product_id is not null), '[]')" +
+                    "FROM purchases JOIN product on product_id = product.id " +
+                    "WHERE customer_id = customer.id " +
+                    "AND purchases.date_of_purchase >= '%s' " +
+                    "AND purchases.date_of_purchase <= '%s' " +
+                    "AND extract('dow' FROM date_of_purchase) not in (6, 0))) as customers " +
+                "FROM customer;", stat.getStartDate(), stat.getEndDate());
         try (ResultSet result = this.prepareStatement(SQL)) {
             while (result.next()) {
-                Customer customer = new Customer();
-                customer.setFirstname(result.getString("firstname"));
-                customer.setLastname(result.getString("lastname"));
-
-                try {
-                    if (result.getString("products") != null) {
-                        System.out.println(result.getString("products"));
-                        Product[] products = ObjectMapperUtil.mapToProduct(result.getString("products"));
-                        customer.setProducts(products);
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                System.out.println(customer);
+                Customer customer = ObjectMapperUtil.mapToCustomerPurchases(result.getString("customers"));
+                customers.add(customer);;
             }
-            return customers;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SqlException(e.getMessage());
         }
+        return customers;
     }
 }
