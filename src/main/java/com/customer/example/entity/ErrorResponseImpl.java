@@ -19,4 +19,8 @@ public class ErrorResponseImpl implements Response {
     public String getMessage() {
         return message;
     }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
