@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class ArgumentsSettingManager {
+public final class ArgumentsSettingManager {
 
     private static ArgumentsSettingManager INSTANCE;
     private ResultType typeOperation;
