@@ -1,0 +1,43 @@
+INSERT INTO customer (firstname, lastname) values ('Anto', 'Popov');
+INSERT INTO customer (firstname, lastname) values ('Euvgeniy', 'Lisov');
+INSERT INTO customer (firstname, lastname) values ('Alex', 'Bendinovich');
+INSERT INTO customer (firstname, lastname) values ('Romans', 'Ingushevich');
+INSERT INTO customer (firstname, lastname) values ('Anto', 'Zolotuhin');
+INSERT INTO customer (firstname, lastname) values ('Nikita', 'Cevidov');
+
+
+INSERT INTO product (name, price) values ('java', 9999);
+INSERT INTO product (name, price) values ('microwave', 2599);
+INSERT INTO product (name, price) values ('kettle', 700);
+INSERT INTO product (name, price) values ('refrigerator', 2200);
+INSERT INTO product (name, price) values ('stove', 410);
+INSERT INTO product (name, price) values ('slow', 1650);
+INSERT INTO product (name, price) values ('cooker', 2200);
+INSERT INTO product (name, price) values ('apple', 99);
+INSERT INTO product (name, price) values ('orange', 85);
+INSERT INTO product (name, price) values ('dishes', 1150);
+INSERT INTO product (name, price) values ('chair', 499);
+INSERT INTO product (name, price) values ('laptop', 6500);
+INSERT INTO product (name, price) values ('pen', 20);
+
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (1, 1, '2023-09-12');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (1, 12, '2023-08-16');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (1, 11, '2023-08-05');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (5, 10, '2023-08-07');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (5, 11, '2023-09-09');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (5, 2, '2023-09-22');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (5, 2, '2023-09-26');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (3, 4, '2023-09-23');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (6, 12, '2023-09-11');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (2, 10, '2023-09-12');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (2, 9, '2023-09-01');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (3, 8, '2023-09-18');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (3, 1, '2023-08-19');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (3, 7, '2023-08-21');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (4, 6, '2023-08-20');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (4, 5, '2023-08-05');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (4, 4, '2023-09-17');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (5, 3, '2023-09-16');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (6, 2, '2023-08-13');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (6, 1, '2023-08-14');
+INSERT INTO purchases (customer_id, product_id, date_of_purchase) values (6, 12, '2023-09-24');
