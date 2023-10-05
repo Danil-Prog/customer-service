@@ -29,7 +29,7 @@ public class ObjectMapperUtil {
         try {
             return objectMapper.readValue(file, Stat.class);
         } catch (InvalidFormatException ex) {
-            throw new StatParseException();
+            throw new StatParseException(ex.getMessage());
         }
     }
 

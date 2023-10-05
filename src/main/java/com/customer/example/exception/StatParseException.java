@@ -8,9 +8,9 @@ import java.io.File;
 
 public class StatParseException extends RuntimeException {
 
-    public StatParseException() {
+    public StatParseException(String message) {
         ErrorResponseImpl errorResponse = new ErrorResponseImpl();
-        errorResponse.setMessage("Не удается получить объект статистики, возможно формат даты введен неверно");
+        errorResponse.setMessage(message);
 
         File output = ArgumentsSettingManager.getInstance().getOutput();
 
