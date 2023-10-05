@@ -17,38 +17,33 @@ import java.io.IOException;
  * */
 public class ObjectMapperUtil {
 
-    public static Search mapToSearch(File file) throws IOException {
+    public static Search mapToSearch(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        return objectMapper.readValue(file, Search.class);
+        try {
+            return objectMapper.readValue(file, Search.class);
+        } catch (IOException e) {
+            throw new JsonParseException("Произошла ошибка при формировании объекта Search. Проверьте правильность входных данных." + e.getMessage());
+        }
     }
 
-    public static Stat mapToStat(File file) throws IOException {
+    public static Stat mapToStat(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
             return objectMapper.readValue(file, Stat.class);
-        } catch (InvalidFormatException ex) {
-            throw new StatParseException(ex.getMessage());
+        } catch (IOException ex) {
+            throw new StatParseException("Произошла ошибка при получения дат. Проверьте правильность входных данных. Exception: " + ex.getMessage());
         }
     }
 
-    public static Product[] mapToProduct(String json) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(json, Product[].class);
-    }
-
-    // If list products in user is empty return null
     public static Customer mapToCustomerPurchases(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
             return objectMapper.readValue(json, Customer.class);
-        } catch (JsonProcessingException e) {
-            throw new JsonParseException(e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (JsonProcessingException ex) {
+            throw new JsonParseException("Произошла ошибка при формировании объекта Customer. Exception: " + ex.getMessage());
         }
     }
 
@@ -58,18 +53,18 @@ public class ObjectMapperUtil {
         try {
             if (response instanceof ErrorResponseImpl) {
                 ErrorResponseImpl errors = (ErrorResponseImpl) response;
-
                 objectMapper.writeValue(file, errors);
 
             } else if (response instanceof SearchResponseImpl) {
                 SearchResponseImpl search = (SearchResponseImpl) response;
                 objectMapper.writeValue(file, search);
+
             } else if (response instanceof StatResponseImpl) {
                 StatResponseImpl stat = (StatResponseImpl) response;
                 objectMapper.writeValue(file, stat);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ex) {
+            throw new JsonParseException("Произошла ошибка при формировании результата. Exception: " + ex.getMessage());
         }
     }
 }
