@@ -1,0 +1,8 @@
+{
+  "criterias": [
+    {"lastName": "Zolotuhin"},
+    {"productName": "microwave", "minTimes": 2},
+    {"minExpenses": 50, "maxExpenses": 1500},
+    {"badCustomers": 2}
+  ]
+}
