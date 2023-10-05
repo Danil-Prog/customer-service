@@ -1,7 +1,6 @@
 package com.customer.example.entity.db;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
