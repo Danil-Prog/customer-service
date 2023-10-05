@@ -33,7 +33,7 @@
 -------
 
 ## Notes
-
+ * Database container already contains test data
  * The input parameters can be arranged in any sequence, but the criteria file must be located before the response file
  * If the file from the input parameters was not found, the program will create the file 'errors.json' relative to its path
  * Exceptions, errors that occurred during the program will be recorded in the output file
