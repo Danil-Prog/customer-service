@@ -1,6 +1,10 @@
 package com.customer.example.mapper;
 
 import com.customer.example.entity.*;
+import com.customer.example.entity.db.Customer;
+import com.customer.example.exception.JsonParseException;
+import com.customer.example.exception.StatParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -11,30 +15,54 @@ import java.io.IOException;
  * */
 public class ObjectMapperUtil {
 
-    public static Search mapToSearch(File file) throws IOException {
+    public static Search mapToSearch(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        return objectMapper.readValue(file, Search.class);
+        try {
+            return objectMapper.readValue(file, Search.class);
+        } catch (IOException e) {
+            throw new JsonParseException("Произошла ошибка при формировании объекта Search. Проверьте правильность входных данных." + e.getMessage());
+        }
     }
 
-    public static Stat mapToStat(File file) throws IOException {
+    public static Stat mapToStat(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        return objectMapper.readValue(file, Stat.class);
+        try {
+            return objectMapper.readValue(file, Stat.class);
+        } catch (IOException ex) {
+            throw new StatParseException("Произошла ошибка при получения дат. Проверьте правильность входных данных. Exception: " + ex.getMessage());
+        }
     }
 
-    public static void mapResultToJson(File file, Result result) throws IOException {
+    public static Customer mapToCustomerPurchases(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        if (result instanceof ErrorResultImpl) {
-            ErrorResultImpl errors = (ErrorResultImpl) result;
-            objectMapper.writeValue(file, errors);
-        } else if (result instanceof SearchResultImpl) {
-            SearchResultImpl search = (SearchResultImpl) result;
-            objectMapper.writeValue(file, search);
-        } else if (result instanceof StatResultImpl) {
-            StatResultImpl stat = (StatResultImpl) result;
-            objectMapper.writeValue(file, stat);
+        try {
+            return objectMapper.readValue(json, Customer.class);
+        } catch (JsonProcessingException ex) {
+            throw new JsonParseException("Произошла ошибка при формировании объекта Customer. Exception: " + ex.getMessage());
+        }
+    }
+
+    public static void mapResultToJson(File file, Response response) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            if (response instanceof ErrorResponseImpl) {
+                ErrorResponseImpl errors = (ErrorResponseImpl) response;
+                objectMapper.writeValue(file, errors);
+
+            } else if (response instanceof SearchResponseImpl) {
+                SearchResponseImpl search = (SearchResponseImpl) response;
+                objectMapper.writeValue(file, search);
+
+            } else if (response instanceof StatResponseImpl) {
+                StatResponseImpl stat = (StatResponseImpl) response;
+                objectMapper.writeValue(file, stat);
+            }
+        } catch (IOException ex) {
+            throw new JsonParseException("Произошла ошибка при формировании результата. Exception: " + ex.getMessage());
         }
     }
 }

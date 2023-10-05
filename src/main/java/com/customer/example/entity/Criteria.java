@@ -1,13 +1,18 @@
 package com.customer.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.Objects;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Criteria {
 
     private String lastName;
     private String productName;
-    private int minTimes;
-    private int minExpenses;
-    private int maxExpenses;
-    private int badCustomers;
+    private Integer minTimes;
+    private Integer minExpenses;
+    private Integer maxExpenses;
+    private Integer badCustomers;
 
     public Criteria() {
     }
@@ -20,44 +25,33 @@ public class Criteria {
         return productName;
     }
 
-    public int getMinTimes() {
+    public Integer getMinTimes() {
         return minTimes;
     }
 
-    public int getMinExpenses() {
+    public Integer getMinExpenses() {
         return minExpenses;
     }
 
-    public int getMaxExpenses() {
+    public Integer getMaxExpenses() {
         return maxExpenses;
     }
 
-    public int getBadCustomers() {
+    public Integer getBadCustomers() {
         return badCustomers;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Criteria criteria = (Criteria) o;
+        return Objects.equals(lastName, criteria.lastName) && Objects.equals(productName, criteria.productName) && Objects.equals(minTimes, criteria.minTimes) && Objects.equals(minExpenses, criteria.minExpenses) && Objects.equals(maxExpenses, criteria.maxExpenses) && Objects.equals(badCustomers, criteria.badCustomers);
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public void setMinTimes(int minTimes) {
-        this.minTimes = minTimes;
-    }
-
-    public void setMinExpenses(int minExpenses) {
-        this.minExpenses = minExpenses;
-    }
-
-    public void setMaxExpenses(int maxExpenses) {
-        this.maxExpenses = maxExpenses;
-    }
-
-    public void setBadCustomers(int badCustomers) {
-        this.badCustomers = badCustomers;
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastName, productName, minTimes, minExpenses, maxExpenses, badCustomers);
     }
 
     @Override

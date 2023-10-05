@@ -2,16 +2,17 @@ package com.customer.example.exception;
 
 import com.customer.example.entity.ErrorResponseImpl;
 import com.customer.example.mapper.ObjectMapperUtil;
+import com.customer.example.utils.ArgumentsSettingManager;
 
 import java.io.File;
 
-public class FileNotFoundException extends RuntimeException {
+public class StatParseException extends RuntimeException {
 
-    public FileNotFoundException(String message) {
+    public StatParseException(String message) {
         ErrorResponseImpl errorResponse = new ErrorResponseImpl();
         errorResponse.setMessage(message);
 
-        File output = new File("error.json");
+        File output = ArgumentsSettingManager.getInstance().getOutput();
 
         ObjectMapperUtil.mapResultToJson(output, errorResponse);
     }

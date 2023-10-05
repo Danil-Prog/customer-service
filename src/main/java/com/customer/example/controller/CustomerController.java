@@ -1,6 +1,6 @@
 package com.customer.example.controller;
 
-import com.customer.example.entity.Result;
+import com.customer.example.entity.Response;
 import com.customer.example.entity.Search;
 import com.customer.example.entity.Stat;
 import com.customer.example.service.CustomerService;
@@ -14,11 +14,11 @@ public class CustomerController {
         this.customerService = new CustomerServiceImpl();
     }
 
-    public Result getCustomersByCriterias(Search search) {
+    public Response getCustomersByCriterias(Search search) {
         return customerService.getCustomersByCriterias(search);
     }
 
-    public Result getCustomerStats(Stat stat) {
+    public Response getCustomerStats(Stat stat) {
         return customerService.getCustomersStats(stat);
     }
 }

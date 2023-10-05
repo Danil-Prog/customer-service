@@ -10,17 +10,16 @@ import java.util.Properties;
 public abstract class AbstractRepository {
 
     private Connection connection;
-    private InputStream fileInputStream;
     private Properties properties;
 
     // Return connection to database
-    public Connection getConnection() {
-        if (connection != null)
+    public Connection getConnection() throws SQLException {
+        if (connection != null && !connection.isClosed())
             return connection;
 
         if (properties == null) {
             try {
-                fileInputStream = getClass().getClassLoader().getResourceAsStream("application.properties");
+                InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream("application.properties");
                 properties = new Properties();
 
                 properties.load(fileInputStream);
@@ -35,9 +34,10 @@ public abstract class AbstractRepository {
 
         try {
             connection = DriverManager.getConnection(url, username, password);
+
             return connection;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SqlException(e.getMessage());
         }
     }
 

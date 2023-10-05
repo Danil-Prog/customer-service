@@ -1,4 +1,4 @@
 package com.customer.example.entity;
 
-public interface Result {
+public interface Response {
 }

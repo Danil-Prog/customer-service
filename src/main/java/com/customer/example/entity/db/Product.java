@@ -3,9 +3,12 @@ package com.customer.example.entity.db;
 public class Product {
 
     private String name;
-    private double price;
+    private int price;
 
-    public Product(String name, double price) {
+    public Product() {
+    }
+
+    public Product(String name, int price) {
         this.name = name;
         this.price = price;
     }
@@ -18,11 +21,19 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product {" +
+                "name = '" + name + '\'' +
+                ", price = " + price +
+                '}';
     }
 }

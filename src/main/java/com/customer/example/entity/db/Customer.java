@@ -1,40 +1,35 @@
 package com.customer.example.entity.db;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Customer {
 
     private String firstname;
     private String lastname;
-    private Profile profile;
+    private List<Product> purchases;
 
     public Customer() {
+        this.purchases = new ArrayList<>();
     }
 
-    public Customer(String firstname, String lastname, Profile profile) {
+    public Customer(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.profile = profile;
     }
 
     public String getFirstname() {
         return firstname;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
     public String getLastname() {
         return lastname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
 
-    public Profile getProfile() {
-        return profile;
+    public List<Product> getPurchases() {
+        return purchases;
     }
 
     @Override
@@ -55,18 +50,7 @@ public class Customer {
         return "Customer{" +
                 "firstname = '" + firstname + '\'' +
                 ", lastname = '" + lastname + '\'' +
-                ", profile = " + profile +
+                ", products = " + purchases +
                 '}';
-    }
-
-    public static class Profile {
-        public int id;
-
-        @Override
-        public String toString() {
-            return "Profile{" +
-                    "id = " + id +
-                    '}';
-        }
     }
 }

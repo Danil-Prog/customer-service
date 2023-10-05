@@ -1,35 +1,33 @@
 package com.customer.example;
 
 import com.customer.example.controller.CustomerController;
-import com.customer.example.entity.Result;
+import com.customer.example.entity.Response;
 import com.customer.example.entity.Search;
 import com.customer.example.entity.Stat;
 import com.customer.example.mapper.ObjectMapperUtil;
-import com.customer.example.utils.ArgumentsSetting;
-
-import java.io.IOException;
+import com.customer.example.utils.ArgumentsSettingManager;
 
 public class CustomerApplication {
-    public static void main(String[] args) throws IOException {
-        ArgumentsSetting argumentsSetting = new ArgumentsSetting();
-        argumentsSetting.parseArguments(args);
+    public static void main(String[] args) {
+        ArgumentsSettingManager argumentsSettingManager = ArgumentsSettingManager.getInstance();
+        argumentsSettingManager.parseArguments(args);
 
         CustomerController customerController = new CustomerController();
-        Result result = null;
+        Response response = null;
 
-        switch (argumentsSetting.getTypeOperation()) {
+        switch (argumentsSettingManager.getTypeOperation()) {
             case search:
-                Search search = ObjectMapperUtil.mapToSearch(argumentsSetting.getInput());
-                result = customerController.getCustomersByCriterias(search);
+                Search search = ObjectMapperUtil.mapToSearch(argumentsSettingManager.getInput());
+                response = customerController.getCustomersByCriterias(search);
                 break;
             case stat:
-                Stat stat = ObjectMapperUtil.mapToStat(argumentsSetting.getInput());
-                result = customerController.getCustomerStats(stat);
+                Stat stat = ObjectMapperUtil.mapToStat(argumentsSettingManager.getInput());
+                response = customerController.getCustomerStats(stat);
                 break;
         }
 
-        if (result != null) {
-            ObjectMapperUtil.mapResultToJson(argumentsSetting.getOutput(), result);
+        if (response != null) {
+            ObjectMapperUtil.mapResultToJson(argumentsSettingManager.getOutput(), response);
         }
     }
 }
