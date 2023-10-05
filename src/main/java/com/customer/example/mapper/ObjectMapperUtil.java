@@ -2,12 +2,10 @@ package com.customer.example.mapper;
 
 import com.customer.example.entity.*;
 import com.customer.example.entity.db.Customer;
-import com.customer.example.entity.db.Product;
 import com.customer.example.exception.JsonParseException;
 import com.customer.example.exception.StatParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 import java.io.File;
 import java.io.IOException;
