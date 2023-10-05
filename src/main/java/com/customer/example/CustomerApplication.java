@@ -7,10 +7,8 @@ import com.customer.example.entity.Stat;
 import com.customer.example.mapper.ObjectMapperUtil;
 import com.customer.example.utils.ArgumentsSettingManager;
 
-import java.io.IOException;
-
 public class CustomerApplication {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         ArgumentsSettingManager argumentsSettingManager = ArgumentsSettingManager.getInstance();
         argumentsSettingManager.parseArguments(args);
 
