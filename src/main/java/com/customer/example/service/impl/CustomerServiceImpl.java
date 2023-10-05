@@ -4,10 +4,14 @@ import com.customer.example.dto.CustomerDto;
 import com.customer.example.entity.*;
 import com.customer.example.entity.db.Customer;
 import com.customer.example.entity.db.Product;
+import com.customer.example.exception.StatParseException;
 import com.customer.example.mapper.CustomerMapper;
 import com.customer.example.repository.CustomerRepository;
 import com.customer.example.service.CustomerService;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -108,6 +112,23 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Response getCustomersStats(Stat stat) {
         List<Customer> customers = this.customerRepository.getCustomerPurchasesByRangeDates(stat);
+        System.out.println(this.isValidDateFormat(stat));
         return null;
+    }
+
+    // Check date format
+    public boolean isValidDateFormat(Stat stat) {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        format.setLenient(true);
+
+        try {
+            System.out.println();
+            format.parse(stat.getStartDate().toString());
+            format.parse(stat.getEndDate().toString());
+        }catch (ParseException ex) {
+            throw new StatParseException("Неверный формат даты");
+        }
+
+        return true;
     }
 }
