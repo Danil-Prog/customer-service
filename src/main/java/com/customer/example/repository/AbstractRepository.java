@@ -37,7 +37,7 @@ public abstract class AbstractRepository {
 
             return connection;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SqlException(e.getMessage());
         }
     }
 
